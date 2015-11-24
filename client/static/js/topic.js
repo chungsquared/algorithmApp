@@ -12,6 +12,9 @@ myApp.factory('TopicFactory', function($http){
 			callback();
 		})
 	}
+	factory.destroyTopic = function (info,callback){
+		$http.post('/delete')
+	}
 	return factory;
 })
 
@@ -21,23 +24,27 @@ myApp.controller('TopicController', function ($scope, TopicFactory, $location, $
 	$scope.logged_in_user = $rootScope.user;
 	console.log("topic controller", $rootScope.user)
 
-	TopicFactory.getTopics(function(data){
+	TopicFactory.getTopics(function (data){
 		$scope.all_topics = data;
+		console.log(data)
 	})
 
 	$scope.addTopic = function(topic){
+		console.log(topic)
 		$scope.topic = topic;
 		$scope.topic.user_id = $rootScope.user._id
 		$scope.topic.user_name = $rootScope.user.name
 		console.log($scope.topic)
 		TopicFactory.newTopic($scope.topic, function(){
 			TopicFactory.getTopics(function(data){
-			$scope.all_topics = data;
+				$scope.all_topics = data;
+				console.log($scope.all_topics)
 			})
 		})
 	}
+
 	$scope.topicShow = function(topic_id){
-		console.log("topic id from dashboard", topic_id)
+		console.log("topic id from dashboard")
 		$location.path('/topic/'+topic_id).search({topic_id: topic_id})
 	}
 })

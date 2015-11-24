@@ -7,30 +7,12 @@
 	<h1>Welcome, {{logged_in_user.name}}!</h1>
 
 	<br>
-
-
-	
-	<ul>
-		<li><a href="">Week 1 - Strings</a></li>
-		<li><a href="">Week 2 - Arrays</a></li>
-		<li><a href="">Week 3 - Linked Lists</a></li>
-		<li><a href="">Week 4 - Searches</a></li>
-		<li><a href="">Week 5 - Searches</a></li>
-		<li><a href="">Week 6 - Searches</a></li>
-		<li><a href="">Week 1 - Strings</a></li>
-		<li><a href="">Week 2 - Arrays</a></li>
-		<li><a href="">Week 3 - Linked Lists</a></li>
-		<li><a href="">Week 4 - Searches</a></li>
-		<li><a href="">Week 5 - Searches</a></li>
-		<li><a href="">Week 6 - Searches</a></li>
-	</ul>
-
 <hr>
 
 	<div class="col-md-12">
 		<form class="form-group">
 			<label for="search">Search</label>
-			<input type="text" class="form-control" id="search">
+			<input type="text" class="form-control" id="search" ng-model='searchText'>
 		</form>
 	</div>
 
@@ -38,35 +20,18 @@
 		<div class="col-md-12">
 			<table class="table table-bordered table-hover">
 				<thead>
-					<th>Week</th>
-					<th>Topic</th>
+					<th>Category</th>
+					<th>Title</th>
 					<th>Difficulty</th>
-					<th>Posts</th>
+					<th>Actions</th>
 				</thead>
 				<tbody>
-					<tr>
-						<td>Week 1</td>
-						<td>Sorts</td>
-						<td>Medium</td>
-						<td>Overview</td>
-					</tr>
-					<tr>
-						<td>Week 2</td>
-						<td>Arrays</td>
-						<td>Medium</td>
-						<td>Overview</td>
-					</tr>
-					<tr>
-						<td>Week 3</td>
-						<td>Fundamentals</td>
-						<td>Medium</td>
-						<td>Overview</td>
-					</tr>
-						
-					<tr ng-repeat="topic in all_topics">
-						<td>{{topic.category}}</td>
-						<td><a href="" ng-click="topicShow(topic._id)">{{topic.topic_name}}</a></td>
-						<td>{{topic.user_name}}</td>
+					<tr ng-repeat='topic in all_topics | filter: searchText'>
+						<!-- <td ng-bind='topic.week'></td> -->
+						<td><a href="" ng-bind='topic.topic_name' ng-click='topicShow(topic._id)'></a></td>
+						<td ng-bind='topic.category'></td>
+						<td ng-bind='topic.difficulty'></td>
+						<td><a href="">destroy</a></td>
 					</tr>
 				</tbody>
 			</table>
@@ -103,6 +68,12 @@
 				    <option>Linked Lists</option>
 				  </select>
 				<br>
+				<label for="difficulty">Difficulty</label>
+				<select class='form-control' ng-model='topic.difficulty'>
+					<option value="Beginner">Beginner</option>
+					<option value="Intermediate">Intermedaite</option>
+					<option value="Advanced">Advanced</option>
+				</select>
 				<button type="submit" ng-click="addTopic(topic)" class="btn btn-default">Submit</button>
 			</form>
 		</div>

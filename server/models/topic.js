@@ -4,6 +4,7 @@ var TopicSchema = new mongoose.Schema({
 	topic_name: String,
   	description: String,
  	category: String,
+ 	difficulty: String,
  	// user_id: String,
  	// user_name: String,
  	posts: [{type: Schema.Types.ObjectId, ref: 'Post'}],
